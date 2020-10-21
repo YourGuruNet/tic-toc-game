@@ -1,0 +1,151 @@
+@import url("https://fonts.googleapis.com/css2?family=Staatliches&display=swap");
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+:root {
+  --cellSize: 100px;
+  --markSize: calc(var(--cellSize) * 0.9);
+  --lightBlue: #00d4ff;
+  --mediumBlue: #039ad1;
+  --darkBlue: #074890;
+  --lightGrey: #21bef7;
+}
+body {
+  margin: 0;
+  background-color: var(--lightBlue);
+}
+.body {
+  text-align: center;
+  width: 100vw;
+  height: 100vh;
+}
+.body h1 {
+  color: var(--darkBlue);
+  font-size: 3rem;
+  font-family: "Staatliches", cursive;
+}
+.board {
+  margin-top: 4rem;
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  justify-items: center;
+  align-content: center;
+  grid-template-columns: repeat(3, auto);
+}
+.cell {
+  width: var(--cellSize);
+  height: var(--cellSize);
+  border: 0.1rem solid var(--darkBlue);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+}
+.cell.x,
+.cell.circle {
+  cursor: not-allowed;
+}
+.board.x .cell:not(.x):not(.circle):hover::before,
+.board.x .cell:not(.x):not(.circle):hover::after,
+.board.circle .cell:not(.x):not(.circle):hover::before {
+  background-color: var(--lightGrey);
+}
+
+.cell.x::before,
+.cell.x::after,
+.cell.circle::before {
+  background-color: var(--mediumBlue);
+}
+
+.cell.circle::after,
+.cell:first-child,
+.cell:nth-child(2),
+.cell:nth-child(3) {
+  border-top: none;
+}
+.cell:nth-child(3n + 1) {
+  border-left: none;
+}
+.cell:nth-child(3n + 3) {
+  border-right: none;
+}
+.cell:last-child,
+.cell:nth-child(8),
+.cell:nth-child(7) {
+  border-bottom: none;
+}
+.cell.x::before,
+.cell.x::after,
+.board.x .cell:not(.x):not(.circle):hover::before,
+.board.x .cell:not(.x):not(.circle):hover::after {
+  content: "";
+  position: absolute;
+  width: calc(var(--markSize) * 0.15);
+  height: var(--markSize);
+}
+.cell.x::before,
+.board.x .cell:not(.x):not(.circle):hover::before {
+  transform: rotate(45deg);
+}
+.cell.x::after,
+.board.x .cell:not(.x):not(.circle):hover::after {
+  transform: rotate(-45deg);
+}
+
+.cell.circle::before,
+.cell.circle::after,
+.board.circle .cell:not(.x):not(.circle):hover::before,
+.board.circle .cell:not(.x):not(.circle):hover::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+}
+.cell.circle::before,
+.board.circle .cell:not(.x):not(.circle):hover::before {
+  width: var(--markSize);
+  height: var(--markSize);
+}
+.cell.circle::after,
+.board.circle .cell:not(.x):not(.circle):hover::after {
+  width: calc(var(--markSize) * 0.7);
+  height: calc(var(--markSize) * 0.7);
+  background-color: var(--lightBlue);
+}
+
+.winning-message {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(7, 71, 144, 0.9);
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-family: "Staatliches", cursive;
+  font-size: 4rem;
+  color: var(--lightBlue);
+  margin: 0;
+}
+.winning-message button {
+  color: var(--darkBlue);
+  background-color: var(--lightBlue);
+  border: solid 0.1rem var(--darkBlue);
+  padding: 0.5rem 1rem;
+  font-size: 3rem;
+  font-family: "Staatliches", cursive;
+  outline: none;
+  cursor: pointer;
+}
+.winning-message button:hover {
+  background-color: var(--lightGrey);
+}
+.show {
+  display: flex;
+}
